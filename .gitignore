@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.fasta
+*.fas
+*.csv
+*.meg
+*.mas
+*.xls
+*.db
+.env
