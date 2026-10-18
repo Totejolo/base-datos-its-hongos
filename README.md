@@ -29,6 +29,7 @@ alineamiento en MEGA y busca zonas conservadas en las que diseñar cebadores par
 | 15 | `scripts/15_crear_tabla_definitiva.py` | Crea la tabla definitiva en PostgreSQL e importa las secuencias desde el FASTA alineado. |
 | 16 | `scripts/16_buscar_cebadores_directos.py` | Analiza la conservación de cada posición del alineamiento, calcula Tm y %GC y selecciona los candidatos a cebador directo. |
 | 17 | `scripts/17_buscar_cebadores_inversos.py` | Hace el mismo análisis en la región final del alineamiento para los candidatos a cebador inverso. |
+| 18 | `scripts/18_calcular_tamano_amplicon.py` | Escribe los candidatos a cebador inverso en sentido 5'→3' (complementaria inversa) y calcula el tamaño del fragmento que amplifica la pareja de cebadores en cada secuencia del alineamiento. |
 
 ## Consultas SQL
 
@@ -51,6 +52,34 @@ de uso de las E-utilities de NCBI.
 
 Los datos no se incluyen en el repositorio. Las secuencias se obtienen de NCBI Nucleotide con la búsqueda
 `ITS ribosomal fungi`; el script `01_descargar_secuencias_ncbi.py` automatiza la descarga.
+
+## Árbol de distancias (MEGA-CC)
+
+El árbol de la figura 3.3 se reconstruye con MEGA-CC 12 y el fichero de opciones `mega/arbol_nj_distancia_p.mao`
+(unión de vecinos, distancia p, eliminación por pares de los huecos):
+
+```
+megacc -a mega/arbol_nj_distancia_p.mao -d alineamiento.fas -o arbol_nj
+```
+
+Se usa la distancia p porque la distancia de Kimura de 2 parámetros no puede calcularse entre algunos pares de
+secuencias muy diferentes del alineamiento.
+
+## Figuras
+
+La carpeta `figuras/` contiene los scripts que generan las figuras 1.1, 3.2, 3.3 y 3.4 del trabajo. Necesitan
+matplotlib y Pillow, además de la fuente Arial.
+
+| Script | Figura |
+|---|---|
+| `figuras/figura_1_1_esquema_its.py` | Esquema de la unidad de ADN ribosómico y posición de los cebadores |
+| `figuras/figura_3_2_alineamiento.py` | Fragmento del alineamiento con el cebador directo rotulado |
+| `figuras/figura_3_3_arbol.py` | Árbol completo y ampliación de un clado |
+| `figuras/figura_3_4_gel.py` | Electroforesis de los productos de PCR |
+
+## Licencia
+
+MIT (ver `LICENSE`).
 
 ## Nombres anteriores de los scripts
 
